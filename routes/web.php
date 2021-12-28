@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookSalesController;
 use Illuminate\Support\Facades\Route;
+use Tests\Feature\BookSalesControllerTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware('auth')->group(function(){
+    Route::get('/show', [BookController::class, 'show']);
+    Route::get('/books', [BookController::class, 'index']);
+    Route::post('/book/{book}/sales', [BookSalesController::class, 'store']);
+});
+
